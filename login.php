@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $conn->real_escape_string($_POST['password']);
 
     // Retrieve user from database
-    $sql = "SELECT email, password FROM user WHERE username='$username'";
+    $sql = "SELECT * FROM user WHERE username='$username'";
     $result = $conn->query($sql);
 
     if ($result->num_rows == 1) {
@@ -56,7 +56,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $hashed_password)) {
             $_SESSION['username'] = $row['username'];
             header("Location: welcome.php");
-            exit();
         } else {
             echo "Invalid password.";
         }
